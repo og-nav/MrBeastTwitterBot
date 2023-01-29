@@ -19,4 +19,18 @@ def post_tweet():
   media = api.media_upload('bernie.jpg')
   post = api.update_status(status=new_tweet, media_ids=[media.media_id])
 
-post_tweet()
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello_world():
+    name = os.environ.get("NAME", "World")
+    return "Hello {}!".format(name)
+
+
+if __name__ == "__main__":
+    post_tweet()
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
